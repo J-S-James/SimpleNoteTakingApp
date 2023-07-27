@@ -1,0 +1,51 @@
+﻿<Window x:Class="SimpleNoteTakingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleNoteTakingApp"
+        xmlns:v="clr-namespace:SimpleNoteTakingApp.Views"
+        mc:Ignorable="d"
+        Title="SimpleNoteTakingApp" Height="450" Width="800">
+    <Window.DataContext>
+        <local:AppViewModel/>
+    </Window.DataContext>
+    <Grid Margin="5,0,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!-- Title -->
+        <Grid Grid.Row="0">
+            <TextBlock HorizontalAlignment="Center" FontSize="42" FontWeight="Bold">
+                Notes
+            </TextBlock>
+        </Grid>
+
+        <!-- Save & Add -->
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <!-- Add -->
+                <Button Margin="0,0,10,0" Command="{Binding BookViewModel.AddCommand}">
+                    Add
+                </Button>
+                <!-- Save -->
+                <Button Command="{Binding BookViewModel.SaveCommand}">
+                    Save
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Content -->
+        <Grid Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding BookViewModel.Notes}" HorizontalContentAlignment="Stretch" BorderThickness="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <v:NoteItemView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</Window>
